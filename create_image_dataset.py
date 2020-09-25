@@ -4,7 +4,12 @@ import numpy as np
 print("package imported")
 
 
-
+def save_image(img,x,y,w,h,c):
+    img_save=img[y-50:y+h+50,x-50:x+w+50]
+    save_path=os.path.join(os.path.dirname(__file__), 'scanned_images', 'img_'+str(c)+'.jpg')
+    print(save_path)
+    cv2.imwrite(save_path,img_save)
+    print("image saved!")
 
 
 img_path = os.path.join(os.path.dirname(__file__), 'resources', 'img1.jpeg')
@@ -34,9 +39,9 @@ while True:
     print("number of faces : ",len(faces))
 
     for (x,y,w,h) in faces:
-        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+        cv2.rectangle(img,(x-60,y-60),(x+w+60,y+h+60),(255,255,0),2)
         c=c+1
-
+        save_image(img,x,y,w,h,c)
 
 
     cv2.imshow("video", img)
